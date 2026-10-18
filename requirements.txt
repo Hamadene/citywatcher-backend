@@ -6,3 +6,4 @@ python-jose[cryptography]
 python-multipart
 requests
 psycopg2-binary
+psycopg[binary]
