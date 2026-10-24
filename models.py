@@ -14,9 +14,11 @@ class Actualite(Base):
 class Utilisateur(Base):
     __tablename__ = "utilisateurs"
 
-    id              = Column(Integer, primary_key=True, index=True)
-    email           = Column(String, unique=True, index=True, nullable=False)
-    mot_de_passe    = Column(String, nullable=False)  # Stocké hashé, jamais en clair
-    nom             = Column(String, nullable=False)
-    latitude        = Column(Float, default=48.8566)   # Position de l'utilisateur
-    longitude       = Column(Float, default=2.3522)
+    id           = Column(Integer, primary_key=True, index=True)
+    email        = Column(String, unique=True, index=True, nullable=False)
+    mot_de_passe = Column(String, nullable=False)
+    nom          = Column(String, nullable=False)
+    adresse      = Column(String, nullable=True)
+    latitude     = Column(Float, default=48.8566)
+    longitude    = Column(Float, default=2.3522)
+    role         = Column(String, default="user")  # user | admin | chauffeur

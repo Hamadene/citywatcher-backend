@@ -23,6 +23,7 @@ class RegisterRequest(BaseModel):
     nom: str
     email: str
     mot_de_passe: str
+    adresse: Optional[str] = None
     latitude: Optional[float] = 48.8566
     longitude: Optional[float] = 2.3522
 
@@ -32,13 +33,16 @@ class LoginRequest(BaseModel):
 
 class TokenResponse(BaseModel):
     access_token: str
+    role: str
 
 class UserResponse(BaseModel):
     id: int
     nom: str
     email: str
+    adresse: Optional[str] = None
     latitude: float
     longitude: float
+    role: str
 
     class Config:
         from_attributes = True
@@ -46,3 +50,7 @@ class UserResponse(BaseModel):
 class UpdatePositionRequest(BaseModel):
     latitude: float
     longitude: float
+
+class RoleUpdateRequest(BaseModel):
+    email: str
+    role: str  # user | admin | chauffeur
