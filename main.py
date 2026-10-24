@@ -14,6 +14,19 @@ from auth import (
 
 models.Base.metadata.create_all(bind=engine)
 
+
+# Migration automatique : ajoute les nouvelles colonnes si elles n'existent pas
+from sqlalchemy import text, inspect as sa_inspect
+with engine.connect() as conn:
+    inspector = sa_inspect(engine)
+    colonnes = [c['name'] for c in inspector.get_columns('utilisateurs')]
+    if 'role' not in colonnes:
+        conn.execute(text("ALTER TABLE utilisateurs ADD COLUMN role VARCHAR DEFAULT 'user'"))
+        conn.commit()
+    if 'adresse' not in colonnes:
+        conn.execute(text("ALTER TABLE utilisateurs ADD COLUMN adresse VARCHAR"))
+        conn.commit()
+
 app = FastAPI(title="CityWatcher API")
 
 app.add_middleware(
